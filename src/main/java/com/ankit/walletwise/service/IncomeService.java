@@ -18,14 +18,14 @@ public class IncomeService {
     private final IncomeRepository incomeRepository;
     private final UserRepository userRepository;
 
-    public Income addUserIncome(int userId,double amount,String source,String note){
+    public Income addUserIncome(int userId,double amount,String source,String Description){
         User user = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found "));
 
         Income income=new Income();
         income.setUser(user);
         income.setAmount(amount);
         income.setSource(source);
-        income.setNote(note);
+        income.setDescription(Description);
 
         return incomeRepository.save(income);
     }

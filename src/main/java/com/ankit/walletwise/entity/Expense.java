@@ -2,18 +2,13 @@ package com.ankit.walletwise.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "expenses")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Expense {
@@ -21,12 +16,14 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false)
+    private String title;
+    @Column(nullable = false)
     private double amount;
     @Column(nullable = false)
     private String category;
     @Column
-    private String note;
-    @Column(name = "expense_date", nullable = false ,updatable = false)
+    private String description;
+    @Column(name = "expense_date", nullable = false)
     private LocalDateTime date;
 
     @ManyToOne

@@ -18,14 +18,14 @@ public class ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
 
-    public Expense addUserExpense(int userId,double amount,String category,String note){
+    public Expense addUserExpense(int userId,double amount,String category,String Description){
         User user = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User not found"));
 
         Expense expense= new Expense();
         expense.setUser(user);
         expense.setAmount(amount);
         expense.setCategory(category);
-        expense.setNote(note);
+        expense.setDescription(Description);
 
         return expenseRepository.save(expense);
     }

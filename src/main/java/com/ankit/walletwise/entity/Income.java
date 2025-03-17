@@ -20,12 +20,14 @@ public class Income {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false)
+    private String title;
+    @Column(nullable = false)
     private double amount;
     @Column(nullable = false)
     private String source;
     @Column
-    private String note;
-    @Column(name = "income_date", nullable = false ,updatable = false)
+    private String description;
+    @Column(name = "income_date", nullable = false )
     private LocalDateTime date;
 
     @ManyToOne
