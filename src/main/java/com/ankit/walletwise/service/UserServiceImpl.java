@@ -47,6 +47,8 @@ public class UserServiceImpl implements UserService {
 
         if (userDetails.getPassword()!=null && !userDetails.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+        }else{
+            throw new IllegalArgumentException("please provide currect password");
         }
 
         return userRepository.save(user);

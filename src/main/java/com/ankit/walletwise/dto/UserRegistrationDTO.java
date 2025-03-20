@@ -1,16 +1,14 @@
 package com.ankit.walletwise.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseDTO {
-    private int id;
+public class UserRegistrationDTO {
     private String name;
     private String email;
+    private String password;
 }

@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "incomes")
@@ -22,13 +23,13 @@ public class Income {
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
-    private double amount;
+    private BigDecimal amount;
     @Column(nullable = false)
     private String source;
     @Column
     private String description;
     @Column(name = "income_date", nullable = false )
-    private LocalDateTime date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
@@ -37,7 +38,7 @@ public class Income {
 
     @PrePersist
     protected void onCreate(){
-        this.date=LocalDateTime.now();
+        this.date=LocalDate.now();
     }
 
 }

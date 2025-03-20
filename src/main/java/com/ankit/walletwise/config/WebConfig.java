@@ -9,17 +9,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig {
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
+    public WebMvcConfigurer corsConfigure(){
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")    // Allow all endpoints
-                        .allowedOrigins("http://localhost:5500")  // Your frontend origin
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")  // Allowed methods
-                        .allowedHeaders("*")   // Allow all headers
-                        .allowCredentials(true); // Enable cookies/session sharing (if needed)
+                registry.addMapping("/api/**")
+                        .allowedOrigins("http://localhost:5500")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
 }
-
