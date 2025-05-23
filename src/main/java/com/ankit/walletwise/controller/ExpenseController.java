@@ -33,16 +33,16 @@ public class ExpenseController {
     @PostMapping
     public ResponseEntity<ExpenseDTO> createExpense(@RequestBody ExpenseDTO expenseDTO,
                                                     @AuthenticationPrincipal UserDetails userDetails) {
-        // Get the user ID from email
+
         int userId = authUtils.getUserIdFromEmail(userDetails.getUsername());
 
-        // Convert DTO to entity
+
         Expense expense = convertToEntity(expenseDTO);
 
-        // Save expense
+
         Expense savedExpense = expenseService.createExpense(expense, userId);
 
-        // Convert entity back to DTO
+
         ExpenseDTO responseDTO = convertToDTO(savedExpense);
 
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
@@ -93,23 +93,6 @@ public class ExpenseController {
         return ResponseEntity.ok(expenseDTOs);
     }
 
-    @GetMapping("/total")
-    public ResponseEntity<BigDecimal> getTotalExpenses(@AuthenticationPrincipal UserDetails userDetails) {
-        int userId = authUtils.getUserIdFromEmail(userDetails.getUsername());
-        BigDecimal total = expenseService.getTotalExpenseByUser(userId);
-        return ResponseEntity.ok(total);
-    }
-
-    @GetMapping("/total/date-range")
-    public ResponseEntity<BigDecimal> getTotalExpensesByDateRange(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @AuthenticationPrincipal UserDetails userDetails) {
-
-        int userId = authUtils.getUserIdFromEmail(userDetails.getUsername());
-        BigDecimal total = expenseService.getTotalExpenseByUserAndRange(userId, startDate, endDate);
-        return ResponseEntity.ok(total);
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ExpenseDTO> updateExpense(

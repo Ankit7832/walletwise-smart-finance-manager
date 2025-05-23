@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -80,4 +82,19 @@ public class ExpenseServiceImpl implements ExpenseService {
     public BigDecimal getTotalExpenseByUserAndRange(int userId, LocalDate startDate, LocalDate endDate) {
         return expenseRepository.getTotalExpensesByUserAndDateRange(userId,startDate,endDate);
     }
+
+    @Override
+    public Map<String, BigDecimal> getTotalExpenseByCategory(int userId) {
+        List<Object[]> results = expenseRepository.getTotalExpenseByCategory(userId);
+        Map<String, BigDecimal> categoryMap = new HashMap<>();
+
+        for (Object[] row : results) {
+            String category = (String) row[0];
+            BigDecimal total = (BigDecimal) row[1];
+            categoryMap.put(category, total);
+        }
+
+        return categoryMap;
+    }
+
 }

@@ -29,4 +29,6 @@ public interface IncomeRepository extends JpaRepository<Income,Integer> {
     BigDecimal getTotalIncomesByUserAndDateRange(@Param("userId") int userId,
                                                   @Param("startDate") LocalDate startDate,
                                                   @Param("endDate") LocalDate endDate);
+
+    List<Income> findByUserId(int userId);
 }

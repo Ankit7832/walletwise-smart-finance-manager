@@ -32,16 +32,15 @@ public class IncomeController {
     @PostMapping
     public ResponseEntity<IncomeDTO> createIncome(@RequestBody IncomeDTO incomeDTO,
                                                   @AuthenticationPrincipal UserDetails userDetails) {
-        // Get the user ID from email
+
         int userId = authUtils.getUserIdFromEmail(userDetails.getUsername());
 
-        // Convert DTO to entity
+
         Income income = convertToEntity(incomeDTO);
 
-        // Save income
         Income savedIncome = incomeService.createIncome(income, userId);
 
-        // Convert entity back to DTO
+
         IncomeDTO responseDTO = convertToDTO(savedIncome);
 
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
@@ -92,23 +91,7 @@ public class IncomeController {
         return ResponseEntity.ok(incomeDTOs);
     }
 
-    @GetMapping("/total")
-    public ResponseEntity<BigDecimal> getTotalIncomes(@AuthenticationPrincipal UserDetails userDetails) {
-        int userId = authUtils.getUserIdFromEmail(userDetails.getUsername());
-        BigDecimal total = incomeService.getTotalIncomeByUser(userId);
-        return ResponseEntity.ok(total);
-    }
 
-    @GetMapping("/total/date-range")
-    public ResponseEntity<BigDecimal> getTotalIncomesByDateRange(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @AuthenticationPrincipal UserDetails userDetails) {
-
-        int userId = authUtils.getUserIdFromEmail(userDetails.getUsername());
-        BigDecimal total = incomeService.getTotalIncomeByUserAndRange(userId, startDate, endDate);
-        return ResponseEntity.ok(total);
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<IncomeDTO> updateIncome(
@@ -132,7 +115,6 @@ public class IncomeController {
         return ResponseEntity.noContent().build();
     }
 
-    // Helper methods
     private IncomeDTO convertToDTO(Income income) {
         return new IncomeDTO(
                 income.getId(),

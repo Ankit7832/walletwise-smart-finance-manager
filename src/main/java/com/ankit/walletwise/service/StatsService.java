@@ -37,10 +37,12 @@ public class StatsService {
         monthlyStats.put("income",monthlyIncome);
         monthlyStats.put("expense",monthlyExpense);
         monthlyStats.put("balance",monthlyBalance);
-
         stats.put("monthly",monthlyStats);
-        return stats;
 
+        Map<String, BigDecimal> categoryStats = expenseService.getTotalExpenseByCategory(userId);
+        stats.put("categoryStats", categoryStats);
+
+        return stats;
     }
 
 }

@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    public ResponseEntity<Map<String, Object>> updateCurrentUser(
+    public ResponseEntity<?> updateCurrentUser(
             @RequestBody UserRegistrationDTO userDTO,
             @AuthenticationPrincipal UserDetails userDetails) {
 

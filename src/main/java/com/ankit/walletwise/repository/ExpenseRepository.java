@@ -5,6 +5,7 @@ import com.ankit.walletwise.entity.Expense;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,5 +29,8 @@ public interface ExpenseRepository extends JpaRepository<Expense,Integer> {
     BigDecimal getTotalExpensesByUserAndDateRange(@Param("userId") int userId,
                                                   @Param("startDate") LocalDate startDate,
                                                   @Param("endDate") LocalDate endDate);
+
+    @Query("SELECT e.category, SUM(e.amount) FROM Expense e WHERE e.user.id = :userId GROUP BY e.category")
+    List<Object[]> getTotalExpenseByCategory(@Param("userId") int userId);
 
 }
